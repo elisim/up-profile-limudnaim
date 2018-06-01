@@ -30,9 +30,9 @@ def main():
 		time = up_button.text.split()[-1]
 
 	if up_success:
-		print "profile update SUCCESS! Time: " + time	
+		print("profile update SUCCESS! Time: " + time)	
 	else:
-		print "profile update FAILED! You can update at " + time
+		print("profile update FAILED! You can update at " + time)
 
 	driver.close()
 
