@@ -1,5 +1,5 @@
 # up-profile-limudnaim
-Up your user profile in limudmain website
+Up your user profile in limudmain website.
 To begin, change the config.py file to your details.
 
 ## linux 
