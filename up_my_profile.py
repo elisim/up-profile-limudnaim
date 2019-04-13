@@ -32,15 +32,15 @@ def main():
 	if up_button.get_attribute("class") == "update-profile": 
 		up_button.click() # up my profile
 		up_success = True
-		time = datetime.now().strftime("%D %H:%M") 
 	else:
+		time_to_up = up_button.text.split()[-1]
 		up_success = False 
-		time =  datetime.now().strftime("%D") + " " +up_button.text.split()[-1]
-
+		
+	now = datetime.now().strftime("%D %H:%M") 
 	if up_success:
-		log_to_file(f"profile update SUCCESS! Time: {time}\n" )
+		log_to_file(f"profile update SUCCESS! Time: {now}\n" )
 	else:
-		log_to_file(f"profile update FAILED! You can update at {time}\n")
+		log_to_file(f"profile update FAILED! You can update at {time_to_up}. Time: {now}.\n")
 
 	driver.close()
 
