@@ -8,9 +8,17 @@ url = config["profile_url"]
 mail = config["email"]
 password = config["password"]
 
+log_file = "log.txt"
+
+def log_to_file(log):
+	with open(log_file, "a") as logto:
+		logto.write(log)
 
 def main():
-	driver = webdriver.Chrome()	
+	options = webdriver.ChromeOptions()
+	options.add_argument('headless')
+	options.add_argument('--no-sandbox')
+	driver = webdriver.Chrome(options=options)
 	driver.get(url)
 
 	driver.find_element_by_class_name("login").click() # login to your account 
@@ -22,17 +30,17 @@ def main():
 
 	# class will contain "update-disable" if up is disabled now
 	if up_button.get_attribute("class") == "update-profile": 
-		up_button.click() # up my profile!!!
+		up_button.click() # up my profile
 		up_success = True
-		time = datetime.now().strftime("%H:%M") 
+		time = datetime.now().strftime("%D %H:%M") 
 	else:
 		up_success = False 
-		time = up_button.text.split()[-1]
+		time =  datetime.now().strftime("%D") + " " +up_button.text.split()[-1]
 
 	if up_success:
-		print("profile update SUCCESS! Time: " + time)	
+		log_to_file(f"profile update SUCCESS! Time: {time}\n" )
 	else:
-		print("profile update FAILED! You can update at " + time)
+		log_to_file(f"profile update FAILED! You can update at {time}\n")
 
 	driver.close()
 
