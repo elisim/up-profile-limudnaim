@@ -16,16 +16,15 @@ def log_to_file(log):
 
 def main():
 	options = webdriver.ChromeOptions()
-	options.add_argument('headless')
-	options.add_argument('--no-sandbox')
+	# options.add_argument('headless')
+	# options.add_argument('--no-sandbox')
 	driver = webdriver.Chrome(options=options)
 	driver.get(url)
-
 	driver.find_element_by_class_name("login").click() # login to your account 
 	driver.find_element_by_id("edit-name").send_keys(mail) # fill email input
 	driver.find_element_by_id("edit-pass").send_keys(password) # fill password input
 	driver.find_element_by_id("edit-submit").submit() # submit
-
+	driver.find_element_by_class_name("modal-close").click()
 	up_button = driver.find_element_by_class_name("update-profile")
 
 	# class will contain "update-disable" if up is disabled now
