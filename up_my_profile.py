@@ -26,8 +26,9 @@ def main():
 	global debug_flag
 	debug_flag = '-d' in sys.argv
 	options = webdriver.ChromeOptions()
-	# options.add_argument('headless')
-	# options.add_argument('--no-sandbox')
+	if not debug_flag:
+		options.add_argument('headless')
+		options.add_argument('--no-sandbox')
 	driver = webdriver.Chrome(options=options)
 	driver.get(url)
 	driver.find_element_by_class_name("login").click() # login to your account 
