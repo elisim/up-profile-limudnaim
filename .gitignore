@@ -105,3 +105,6 @@ venv.bak/
 
 config.py
 *.swp
+log.txt
+*.bat
+*.xml
