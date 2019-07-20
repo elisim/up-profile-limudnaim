@@ -1,7 +1,11 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from datetime import datetime
 from config import config
+import sys
 
 
 url = config["profile_url"]
@@ -9,12 +13,18 @@ mail = config["email"]
 password = config["password"]
 
 log_file = "log.txt"
+debug_flag = False
 
 def log_to_file(log):
-	with open(log_file, "a") as logto:
-		logto.write(log)
+	if debug_flag:
+		print(log)
+	else:
+		with open(log_file, "a") as logto:
+			logto.write(log)
 
 def main():
+	global debug_flag
+	debug_flag = '-d' in sys.argv
 	options = webdriver.ChromeOptions()
 	# options.add_argument('headless')
 	# options.add_argument('--no-sandbox')
@@ -25,8 +35,8 @@ def main():
 	driver.find_element_by_id("edit-pass").send_keys(password) # fill password input
 	driver.find_element_by_id("edit-submit").submit() # submit
 	driver.find_element_by_class_name("modal-close").click()
-	up_button = driver.find_element_by_class_name("update-profile")
 
+	up_button = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CLASS_NAME, "update-profile")))
 	# class will contain "update-disable" if up is disabled now
 	if up_button.get_attribute("class") == "update-profile": 
 		up_button.click() # up my profile
