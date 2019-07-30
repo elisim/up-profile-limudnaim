@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from datetime import datetime
 from config import config
 import sys
+from time import sleep
 
 
 url = config["profile_url"]
@@ -40,6 +41,7 @@ def main():
 	up_button = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CLASS_NAME, "update-profile")))
 	# class will contain "update-disable" if up is disabled now
 	if up_button.get_attribute("class") == "update-profile": 
+		sleep(2)
 		up_button.click() # up my profile
 		up_success = True
 	else:
