@@ -30,10 +30,11 @@ def main():
 	if not debug_flag:
 		options.add_argument('headless')
 		options.add_argument('--no-sandbox')
+	options.add_argument("--start-maximized")
 	driver = webdriver.Chrome(options=options)
 	try:
 		driver.get(url)
-		driver.find_element_by_class_name("login").click() # login to your account 
+		driver.find_element_by_class_name("icon-login").click() # login to your accoun
 		driver.find_element_by_id("edit-name").send_keys(mail) # fill email input
 		driver.find_element_by_id("edit-pass").send_keys(password) # fill password input
 		driver.find_element_by_id("edit-submit").submit() # submit
