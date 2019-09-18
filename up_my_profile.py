@@ -17,6 +17,10 @@ log_file = "log.txt"
 debug_flag = False
 
 def log_to_file(log):
+	# append current time to log messege
+	now = datetime.now().strftime("%D %H:%M") 
+	log = f"{log} Time: {now}\n"
+
 	if debug_flag:
 		print(log)
 	else:
@@ -34,7 +38,12 @@ def main():
 	driver = webdriver.Chrome(options=options)
 	try:
 		driver.get(url)
-		driver.find_element_by_class_name("icon-login").click() # login to your accoun
+		try:
+			driver.find_element_by_id("limudnaim-nav-bar-burger").click() # NEW: open menu (if exist)
+			sleep(2)
+		except:
+			pass
+		driver.find_element_by_class_name("icon-login").click() # login to your account
 		driver.find_element_by_id("edit-name").send_keys(mail) # fill email input
 		driver.find_element_by_id("edit-pass").send_keys(password) # fill password input
 		driver.find_element_by_id("edit-submit").submit() # submit
@@ -50,13 +59,12 @@ def main():
 			time_to_up = up_button.text.split()[-1]
 			up_success = False 
 			
-		now = datetime.now().strftime("%D %H:%M") 
 		if up_success:
-			log_to_file(f"profile update SUCCESS! Time: {now}\n" )
+			log_to_file("profile update SUCCESS!")
 		else:
-			log_to_file(f"profile update FAILED! You can update at {time_to_up}. Time: {now}.\n")
+			log_to_file(f"profile update FAILED! You can update at {time_to_up}.")
 	except:
-		log_to_file("Error! Exiting...\n")
+		log_to_file("Error! Exiting...")
 		raise
 	finally:
 		driver.close()
