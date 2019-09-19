@@ -5,8 +5,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from datetime import datetime
 from config import config
-import sys
 from time import sleep
+import sys
+
 
 
 url = config["profile_url"]
@@ -44,7 +45,7 @@ def main():
 			sleep(2)
 		except:
 			pass
-			
+
 		driver.find_element_by_class_name("icon-login").click() # login to your account
 		driver.find_element_by_id("edit-name").send_keys(mail) # fill email input
 		driver.find_element_by_id("edit-pass").send_keys(password) # fill password input
