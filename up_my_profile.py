@@ -38,16 +38,22 @@ def main():
 	driver = webdriver.Chrome(options=options)
 	try:
 		driver.get(url)
-		try:
+
+		try: # not always presented
 			driver.find_element_by_id("limudnaim-nav-bar-burger").click() # NEW: open menu (if exist)
 			sleep(2)
 		except:
 			pass
+			
 		driver.find_element_by_class_name("icon-login").click() # login to your account
 		driver.find_element_by_id("edit-name").send_keys(mail) # fill email input
 		driver.find_element_by_id("edit-pass").send_keys(password) # fill password input
 		driver.find_element_by_id("edit-submit").submit() # submit
-		driver.find_element_by_class_name("modal-close").click()
+
+		try: # no always pop up
+			driver.find_element_by_class_name("modal-close").click()
+		except:
+			pass
 
 		up_button = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CLASS_NAME, "update-profile")))
 		# class will contain "update-disable" if up is disabled now
